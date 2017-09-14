@@ -49,22 +49,20 @@ namespace SignalR.StockTicker
             return _stocks.Values;
         }
 
-        public ReadableChannel<Stock> StreamStocks()
+        public IObservable<Stock> StreamStocks()
         {
-            var channel = Channel.CreateUnbounded<Stock>();
-
-            Task.Run(async () =>
-            {
-                while (MarketState == MarketState.Open)
+            return Observable.Create(
+                async (IObserver<Stock> observer) =>
                 {
-                    foreach (var stock in _stocks.Values)
+                    while (MarketState == MarketState.Open)
                     {
-                        await channel.Out.WriteAsync(stock);
+                        foreach (var stock in _stocks.Values)
+                        {
+                            observer.OnNext(stock);
+                        }
+                        await Task.Delay(_updateInterval);
                     }
-                    await Task.Delay(_updateInterval);
-                }
-            });
-            return channel.In;
+                });
         }
 
         public async Task OpenMarket()

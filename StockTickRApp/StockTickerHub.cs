@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Channels;
 using Microsoft.AspNetCore.SignalR;
 
 namespace SignalR.StockTicker
@@ -19,7 +19,7 @@ namespace SignalR.StockTicker
             return _stockTicker.GetAllStocks();
         }
 
-        public ReadableChannel<Stock> StreamStocks()
+        public IObservable<Stock> StreamStocks()
         {
             return _stockTicker.StreamStocks();
         }

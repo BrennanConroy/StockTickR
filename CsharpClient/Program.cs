@@ -33,6 +33,14 @@ namespace CsharpClient
                 cts.Cancel();
             };
 
+            connection.Closed += e =>
+            {
+                Console.WriteLine("Connection closed with error: {0}", e);
+
+                cts.Cancel();
+                return Task.CompletedTask;
+            };
+
             connection.On("marketOpened", async () =>
             {
                 await StartStreaming();
