@@ -53,15 +53,12 @@ namespace CsharpClient
 
             async Task StartStreaming()
             {
-                var channel = connection.Stream<IEnumerable<Stock>>("StreamStocks", CancellationToken.None);
+                var channel = connection.Stream<Stock>("StreamStocks", CancellationToken.None);
                 while (await channel.WaitToReadAsync() && !cts.IsCancellationRequested)
                 {
-                    while (channel.TryRead(out var stocks))
+                    while (channel.TryRead(out var stock))
                     {
-                        foreach (var stock in stocks)
-                        {
-                            Console.WriteLine($"{stock.Symbol} {stock.Price}");
-                        }
+                        Console.WriteLine($"{stock.Symbol} {stock.Price}");
                     }
                 }
             }

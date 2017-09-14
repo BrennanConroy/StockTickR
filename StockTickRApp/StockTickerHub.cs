@@ -19,7 +19,7 @@ namespace SignalR.StockTicker
             return _stockTicker.GetAllStocks();
         }
 
-        public ReadableChannel<IEnumerable<Stock>> StreamStocks()
+        public ReadableChannel<Stock> StreamStocks()
         {
             return _stockTicker.StreamStocks();
         }

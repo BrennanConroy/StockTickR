@@ -27,11 +27,9 @@ hubConnection.on("marketOpened", function(): void {
 
 function streamStocks (): void {
     hubConnection.stream("StreamStocks").subscribe({
-        next: (stocks : any[]) => {
-            stocks.forEach(element => {
-                console.log(element);
-                // console.log(element.Symbol + " " + element.Price);
-            });
+        next: (stock : any) => {
+            console.log(stock);
+            // console.log(stock.Symbol + " " + stock.Price);
         },
         error: () => {},
         complete: () => {}

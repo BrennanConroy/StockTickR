@@ -19,9 +19,7 @@ var stockTickerBody = stockTicker.getElementsByTagName('ul')[0];
 var up = '▲';
 var down = '▼';
 
-let http = new signalR.HttpConnection("http://" + document.location.host + "/signalr", { transport: signalR.TransportType.WebSockets });
-let logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
-let connection = new signalR.HubConnection(http, logger);
+let connection = new signalR.HubConnection("/signalr", { logging: signalR.LogLevel.Trace });
 connection.start().then(function () {
     while (stockTableBody.firstChild) {
         stockTableBody.removeChild(stockTableBody.firstChild);
@@ -32,7 +30,9 @@ connection.start().then(function () {
     }
 
     connection.invoke("GetAllStocks").then(function (stocks) {
-        displayStocks(stocks);
+        for (let i = 0; i < stocks.length; i++) {
+            displayStock(stocks[i]);
+        }
     });
 
     connection.invoke("GetMarketState").then(function (state) {
@@ -55,7 +55,9 @@ connection.start().then(function () {
     document.getElementById('reset').onclick = function () {
         connection.invoke("Reset").then(function () {
             connection.invoke("GetAllStocks").then(function (stocks) {
-                displayStocks(stocks);
+                for (let i = 0; i < stocks.length; ++i) {
+                    displayStock(stocks[i]);
+                }
             });
         });
     }
@@ -73,7 +75,7 @@ connection.on("marketClosed", function () {
 function startStreaming() {
     connection.stream("StreamStocks").subscribe({
         close: false,
-        next: displayStocks,
+        next: displayStock,
         error: function (err) {
             logger.log(err);
         }
@@ -109,12 +111,10 @@ function marketClosed() {
     document.getElementById('reset').removeAttribute("disabled");
 }
 
-function displayStocks(stocks) {
-    for (let i = 0; i < stocks.length; i++) {
-        var displayStock = formatStock(stocks[i]);
-        addOrReplaceStock(stockTableBody, displayStock, 'tr', rowTemplate);
-        addOrReplaceStock(stockTickerBody, displayStock, 'li', tickerTemplate);
-    }
+function displayStock(stock) {
+    var displayStock = formatStock(stock);
+    addOrReplaceStock(stockTableBody, displayStock, 'tr', rowTemplate);
+    addOrReplaceStock(stockTickerBody, displayStock, 'li', tickerTemplate);
 }
 
 function addOrReplaceStock(table, stock, type, template) {
