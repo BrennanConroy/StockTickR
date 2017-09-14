@@ -1,5 +1,5 @@
 ## How to use
-Launch server application
+Launch server application first.
 ```
 $ npm install
 $ tsc
