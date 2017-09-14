@@ -51,6 +51,14 @@ connection.start().then(function () {
     document.getElementById('close').onclick = function () {
         connection.invoke("CloseMarket");
     }
+
+    document.getElementById('reset').onclick = function () {
+        connection.invoke("Reset").then(function () {
+            connection.invoke("GetAllStocks").then(function (stocks) {
+                displayStocks(stocks);
+            });
+        });
+    }
 });
 
 connection.on("marketOpened", function () {
