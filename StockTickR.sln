@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26911.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTickR", "StockTickRApp\StockTickR.csproj", "{D550DE68-6A61-4A6A-AB62-8787D0230304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockTickR", "StockTickRApp\StockTickR.csproj", "{D550DE68-6A61-4A6A-AB62-8787D0230304}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpClient", "CsharpClient\CsharpClient.csproj", "{B902BED2-3CD0-4EF0-98B2-DF0C21A208F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D550DE68-6A61-4A6A-AB62-8787D0230304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D550DE68-6A61-4A6A-AB62-8787D0230304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D550DE68-6A61-4A6A-AB62-8787D0230304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B902BED2-3CD0-4EF0-98B2-DF0C21A208F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B902BED2-3CD0-4EF0-98B2-DF0C21A208F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B902BED2-3CD0-4EF0-98B2-DF0C21A208F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B902BED2-3CD0-4EF0-98B2-DF0C21A208F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
